@@ -15,6 +15,11 @@ htmlcov/
 # Claude Code
 .claude/
 
+# PyInstaller
+dist/
+build/
+*.spec
+
 # Editor
 .vscode/
 .idea/
