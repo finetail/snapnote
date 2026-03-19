@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "snapnote"
+version = "0.1.0"
+description = "A fast CLI tool for capturing and searching plaintext notes"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Demo User", email = "demo@example.com" }]
+dependencies = [
+    "click>=8.1",
+    "rich>=13.0",
+    "platformdirs>=4.0",
+]
+
+[project.scripts]
+snapnote = "snapnote.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "ruff>=0.3",
+    "mypy>=1.8",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=snapnote --cov-report=term-missing"
