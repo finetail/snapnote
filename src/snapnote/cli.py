@@ -33,7 +33,7 @@ def add_note(text: tuple[str, ...], tag: tuple[str, ...]) -> None:
 def list_notes(tag: str | None, limit: int) -> None:
     """List recent notes."""
     store = NoteStore()
-    notes = store.list(tag=tag, limit=limit)
+    notes = store.list_notes(tag=tag, limit=limit)
     if not notes:
         console.print("[dim]No notes found.[/dim]")
         return

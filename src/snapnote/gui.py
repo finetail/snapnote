@@ -180,7 +180,7 @@ class SnapnoteApp(tk.Tk):
         if query:
             notes = self.store.search(query)
         else:
-            notes = self.store.list(limit=200)
+            notes = self.store.list_notes(limit=200)
 
         for row in self._tree.get_children():
             self._tree.delete(row)
@@ -202,5 +202,34 @@ class SnapnoteApp(tk.Tk):
 
 
 def main() -> None:
-    app = SnapnoteApp()
-    app.mainloop()
+    import sys
+    import traceback
+    from pathlib import Path
+
+    # exe と同じフォルダの logs/ ディレクトリにログを出力
+    if getattr(sys, "frozen", False):
+        base_dir = Path(sys.executable).parent
+    else:
+        base_dir = Path(__file__).parent
+    log_dir = base_dir / "logs"
+    log_dir.mkdir(exist_ok=True)
+    log_path = log_dir / "snapnote-error.log"
+
+    # Windows DPI awareness (高解像度ディスプレイ対応)
+    try:
+        import ctypes
+        ctypes.windll.shcore.SetProcessDpiAwareness(1)
+    except Exception:
+        pass
+
+    try:
+        app = SnapnoteApp()
+        app.mainloop()
+    except Exception:
+        err = traceback.format_exc()
+        log_path.write_text(err, encoding="utf-8")
+        try:
+            messagebox.showerror("エラー", err)
+        except Exception:
+            pass
+        sys.exit(1)
