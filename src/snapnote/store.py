@@ -33,7 +33,7 @@ class NoteStore:
         notes.append(note)
         self._dump(notes)
 
-    def list(self, tag: str | None = None, limit: int = 20) -> list[Note]:
+    def list_notes(self, tag: str | None = None, limit: int = 20) -> list[Note]:
         notes = self._load()
         if tag:
             notes = [n for n in notes if tag in n.tags]

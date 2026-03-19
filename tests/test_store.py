@@ -15,7 +15,7 @@ def store(tmp_path: Path) -> NoteStore:
 def test_save_and_list(store: NoteStore):
     note = Note.new("first note")
     store.save(note)
-    results = store.list()
+    results = store.list_notes()
     assert len(results) == 1
     assert results[0].body == "first note"
 
@@ -23,7 +23,7 @@ def test_save_and_list(store: NoteStore):
 def test_filter_by_tag(store: NoteStore):
     store.save(Note.new("work note", tags=["work"]))
     store.save(Note.new("personal note", tags=["personal"]))
-    work = store.list(tag="work")
+    work = store.list_notes(tag="work")
     assert len(work) == 1
     assert work[0].body == "work note"
 
@@ -40,7 +40,7 @@ def test_delete(store: NoteStore):
     store.save(note)
     removed = store.delete(note.id[:8])
     assert removed is True
-    assert store.list() == []
+    assert store.list_notes() == []
 
 
 def test_delete_nonexistent(store: NoteStore):
