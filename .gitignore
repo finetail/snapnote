@@ -12,6 +12,9 @@ venv/
 htmlcov/
 .coverage
 
+# Claude Code
+.claude/
+
 # Editor
 .vscode/
 .idea/
